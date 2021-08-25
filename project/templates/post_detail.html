@@ -1,0 +1,42 @@
+{% extends 'flatpages/base.html' %}
+<!--{% load custom_filters %}-->
+
+
+{% block title %}
+Новости
+{% endblock title %}
+
+{% block content %}
+        <table>
+            <thead>
+                <tr>
+                    <td>
+                        Заголовок
+                    </td>
+                    <td>
+                        Текст
+                    </td>
+                    <td>
+                        Дата публикации
+                    </td>
+                    <td>
+                        Категория
+                    </td>
+                </tr>
+            </thead>
+            <tr>
+                <td>
+                    {{ post.title }}
+                </td>
+                <td>
+                    {{ post.text|truncatechars:50 }}
+                </td>
+                <td>
+                    {{ post.date_creation|date:'d, M, Y G:i' }}
+                </td>
+                <td>
+                    {{ post.category }}
+                </td>
+            </tr>
+        </table>
+{% endblock content %}

@@ -1,0 +1,16 @@
+{% extends 'flatpages/base.html' %}
+<!--{% load custom_filters %}-->
+
+
+{% block title %}
+Редактирование новости
+{% endblock title %}
+
+
+{% block content %}
+<form method="POST">
+    {% csrf_token %}
+    {{ form }}
+    <input type="submit" value="Изменить новость">
+</form>
+{% endblock content %}
