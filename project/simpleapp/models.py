@@ -1,6 +1,7 @@
 from django.contrib.auth.models import User
 from django.db import models
 from django.db.models import Sum
+from datetime import datetime
 
 
 class Author(models.Model):
@@ -34,17 +35,18 @@ class Author(models.Model):
 
 class Category(models.Model):
     category = models.CharField(max_length=256, unique=True)
+    subscribers = None
 
 
 class Post(models.Model):
-    CATEGORY = (
+    TYPES = (
         ("Статья", "Статья"),
         ("Новость", "Новость")
     )
     author = models.ForeignKey(Author, on_delete=models.CASCADE)
-    category = models.CharField(max_length=16, choices=CATEGORY, default='Статья')
+    type = models.CharField(max_length=16, choices=TYPES, default='Статья')
     date_creation = models.DateTimeField(auto_now_add=True)
-    category_share = models.ManyToManyField(Category, through='PostCategory')
+    category = models.ManyToManyField(Category, through='PostCategory')
     title = models.CharField(max_length=255, unique=True)
     text = models.TextField()
     _post_rating = models.SmallIntegerField(default=0, db_column="post_rating")
@@ -93,3 +95,15 @@ class Comment(models.Model):
         self._comment_rating -= 1
         self.save()
 
+
+class Appointment(models.Model):
+    date = models.DateField(
+        default=datetime.utcnow,
+    )
+    client_name = models.CharField(
+        max_length=200
+    )
+    message = models.TextField()
+
+    def __str__(self):
+        return f'{self.client_name}: {self.message}'

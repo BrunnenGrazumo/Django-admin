@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.views import View
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 
 
@@ -13,7 +13,6 @@ class IndexView(LoginRequiredMixin, TemplateView):
         return context
 
 
-
-class MyView(PermissionRequiredMixin, View):
-    permission_required = ('<app>.<action>_<model>',
-                           '<app>.<action>_<model>')
+class MyView(PermissionRequiredMixin, CreateView):
+    permission_required = ('simpleapp.add_post',
+                           'simpleapp.change_post')

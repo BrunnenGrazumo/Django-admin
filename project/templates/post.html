@@ -44,7 +44,7 @@
                     {{ post.date_creation|date:'d, M, Y G:i' }}
                 </td>
                 <td>
-                    {{ post.category }}
+                    <a href="categories?title__icontains=&_post_rating__gt=&date_creation__date__gte=&author__user__username__icontains=&category__icontains={{post.category}} "><u>{% for a in post.category.all %} {{ a.category }} {% endfor %}<u></a>
                 </td>
                 <td>
                 <a href="{% url 'post_update' post.id %}"><u>Редактировать</u></a>
